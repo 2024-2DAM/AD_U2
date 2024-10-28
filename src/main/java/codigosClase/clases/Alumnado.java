@@ -4,7 +4,7 @@ public class Alumnado {
     private String nia;
     private String nombre;
     private int edad;
-    //private Profesor tutor;
+    private Profesor tutor;
 
     public Alumnado(String nia, String nombre, int edad) {
         this.nia = nia;
@@ -30,6 +30,14 @@ public class Alumnado {
 
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    public Profesor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Profesor tutor) {
+        this.tutor = tutor;
     }
 
     @Override

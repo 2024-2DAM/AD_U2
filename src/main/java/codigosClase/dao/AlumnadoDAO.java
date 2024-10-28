@@ -18,13 +18,14 @@ public class AlumnadoDAO {
     public static int insertar(Alumnado alumnado) {
         int filas = -1;
         String sql = "insert into alumnado " +
-                "(nia, nombre, edad)" +
-                "values (?, ?, ?)";
+                "(nia, nombre, edad, idtutor)" +
+                "values (?, ?, ?, ?)";
         try (Connection c = Conexion.conectar();) {
             PreparedStatement s = c.prepareStatement(sql);
             s.setString(1, alumnado.getNia());
             s.setInt(3, alumnado.getEdad());
             s.setString(2, alumnado.getNombre());
+            s.setString(4, alumnado.getTutor().getId());
             filas = s.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -50,6 +51,8 @@ public class AlumnadoDAO {
                 String n = rs.getString(1); //También se puede poner el índice de la columna
                 String nombre = rs.getString("nombre"); //También se podría haber puesto 2
                 int edad = rs.getInt("edad");
+                //LEO PROFE:
+
                 alumnado = new Alumnado(n, nombre, edad);
             }
         } catch (SQLException e) {
