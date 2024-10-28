@@ -11,11 +11,25 @@ public class MainAlumnado {
         Alumnado a3 = new Alumnado("789", "Juan", 30);
         Alumnado a4 = new Alumnado("159", "Pedro", 15);
 
+        Conexion.eliminarTabla();
         Conexion.crearTablas();
         AlumnadoDAO.insertar(a1);
         AlumnadoDAO.insertar(a2);
         AlumnadoDAO.insertar(a3);
         AlumnadoDAO.insertar(a4);
+
+        //Pruebo actualizar
+        a4.setNombre("NUEVO");
+        a4.setEdad(16);
+        AlumnadoDAO.actualizar(a4);
+
+        //Pruebo eliminar
+
+        //Pruebo leer todo
+
+        //Pruebo leer +18
+
+        //Pruebo leer entre 17 y 23
 
     }
 }

@@ -19,6 +19,19 @@ public class Conexion {
         return con;
     }
 
+    public static boolean eliminarTabla(){
+        boolean result = false;
+        String sql = "drop table if exists alumnado";
+        try (Connection c = conectar()){
+            Statement s = c.createStatement();
+            s.executeUpdate(sql);
+            result = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public static boolean crearTablas(){
         boolean result = false;
         String sql = "create table if not exists alumnado " +
