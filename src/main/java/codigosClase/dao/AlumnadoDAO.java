@@ -23,10 +23,13 @@ public class AlumnadoDAO {
                 "values (?, ?, ?, ?)";
         try (Connection c = Conexion.conectar();) {
             PreparedStatement s = c.prepareStatement(sql);
+            //1. Completo la sentencia SQL
             s.setString(1, alumnado.getNia());
-            s.setInt(3, alumnado.getEdad());
             s.setString(2, alumnado.getNombre());
+            s.setInt(3, alumnado.getEdad());
             s.setString(4, alumnado.getTutor().getId());
+
+            //2. Lanzo la sentencia
             filas = s.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
