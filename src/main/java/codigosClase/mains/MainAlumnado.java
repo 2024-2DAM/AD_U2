@@ -1,8 +1,10 @@
 package codigosClase.mains;
 
 import codigosClase.clases.Alumnado;
+import codigosClase.clases.Profesor;
 import codigosClase.dao.AlumnadoDAO;
 import codigosClase.dao.Conexion;
+import codigosClase.dao.ProfesorDAO;
 
 import java.sql.SQLException;
 
@@ -10,6 +12,18 @@ public class MainAlumnado {
     public static void main(String[] args) {
 
         Conexion.crearTablas();
+        Profesor p1 = new Profesor("qwer", "Sete", "Informática");
+        Alumnado a1 = new Alumnado("123", "Luz", 22, p1);
+        Alumnado a2 = new Alumnado("456", "Mar", 17, p1);
+
+        //Inserto:
+        /*ProfesorDAO.insertar(p1);
+        AlumnadoDAO.insertar(a1);
+        AlumnadoDAO.insertar(a2);*/
+
+        //Leer:
+        System.out.println(AlumnadoDAO.leer("123"));
+
 
 
 

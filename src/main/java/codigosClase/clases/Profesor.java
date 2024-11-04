@@ -19,4 +19,12 @@ public class Profesor {
     public String getId() {
         return id;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
 }

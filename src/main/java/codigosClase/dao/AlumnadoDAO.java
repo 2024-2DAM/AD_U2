@@ -1,6 +1,7 @@
 package codigosClase.dao;
 
 import codigosClase.clases.Alumnado;
+import codigosClase.clases.Profesor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class AlumnadoDAO {
 
     /**
      * Lee de la base de datos el alumno con el NIA indicado como parámetro. SI no existe, devuevle null
+     *
      * @param nia NIA del alumnado a buscar en la BD
      * @return Alumnado con los datos de la BD, o null si no existe
      */
@@ -52,8 +54,12 @@ public class AlumnadoDAO {
                 String nombre = rs.getString("nombre"); //También se podría haber puesto 2
                 int edad = rs.getInt("edad");
                 //LEO PROFE:
+                String idTutor = rs.getString("idtutor");
+                //ESTO NO: alumnado = new Alumnado(n, nombre, edad, idTutor);
 
-                alumnado = new Alumnado(n, nombre, edad);
+                //Tengo que construir el profesor completo (no solo su id!!!)
+                Profesor tutor = ProfesorDAO.leer(idTutor);
+                alumnado = new Alumnado(n, nombre, edad, tutor);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +70,6 @@ public class AlumnadoDAO {
     //Actualizar
 
     /**
-     *
      * @param alumnado
      * @return -1 si ha habido algún error al conectarse con la BD o la sentencia estaba mal formada.
      * 0 si el alumno no existía en la BD.
@@ -79,7 +84,7 @@ public class AlumnadoDAO {
             p.setInt(2, alumnado.getEdad());
             p.setString(3, alumnado.getNia());
             filas = p.executeUpdate();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return filas;
@@ -93,7 +98,7 @@ public class AlumnadoDAO {
             PreparedStatement p = c.prepareStatement(sql);
             p.setString(1, nia);
             filas = p.executeUpdate();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return filas;
@@ -102,11 +107,11 @@ public class AlumnadoDAO {
     //Devolver todes les alumnes que son mayores de edad
 
     /**
-     *
      * @return ArrayLIst con el alumnado mayor de edad, o vacío si no había nadie.
      */
     public static List<Alumnado> leerMayores() {
-        List<Alumnado> alumnado = new ArrayList<>();
+        return leerEntreEdades(18, 1000);
+        /*List<Alumnado> alumnado = new ArrayList<>();
         String sql = "select * from alumnado where edad >= 18";
         try (Connection c = Conexion.conectar()) {
             Statement s = c.createStatement();
@@ -120,8 +125,7 @@ public class AlumnadoDAO {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return alumnado;
+        return alumnado;*/
     }
 
     //Devolver todes les alumnes que tienen entre dos edades
@@ -137,9 +141,12 @@ public class AlumnadoDAO {
                 String nia = rs.getString("nia");   //también rs.getString(1)
                 String nombre = rs.getString("nombre");
                 int edad = rs.getInt("edad");
-                alumnado.add(new Alumnado(nia, nombre, edad));
+                //TUTOR:
+                String idTutor = rs.getString("idtutor");
+                Profesor tutor = ProfesorDAO.leer(idTutor);
+                alumnado.add(new Alumnado(nia, nombre, edad, tutor));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return alumnado;

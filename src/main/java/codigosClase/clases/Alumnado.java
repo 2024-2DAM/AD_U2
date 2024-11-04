@@ -6,10 +6,17 @@ public class Alumnado {
     private int edad;
     private Profesor tutor;
 
-    public Alumnado(String nia, String nombre, int edad) {
+//    public Alumnado(String nia, String nombre, int edad) {
+//        this.nia = nia;
+//        this.nombre = nombre;
+//        this.edad = edad;
+//    }
+
+    public Alumnado(String nia, String nombre, int edad, Profesor tutor) {
         this.nia = nia;
         this.nombre = nombre;
         this.edad = edad;
+        this.tutor = tutor;
     }
 
     public String getNia() {
@@ -42,7 +49,7 @@ public class Alumnado {
 
     @Override
     public String toString() {
-        return nia + " - " + nombre + " - " + edad;
+        return nia + " - " + nombre + " - " + edad + " - " + this.tutor;
     }
 }
 
