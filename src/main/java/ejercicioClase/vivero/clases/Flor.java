@@ -19,6 +19,10 @@ public class Flor extends Planta {
         return petalos;
     }
 
+    public void setPetalos(List<Petalo> petalos) {
+        this.petalos = petalos;
+    }
+
     public int anadirPetalo(Petalo petalo) {
         petalos.add(petalo);
         return petalos.size();
